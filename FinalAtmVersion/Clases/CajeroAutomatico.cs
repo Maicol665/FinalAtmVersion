@@ -169,7 +169,37 @@ namespace FinalAtmVersion.Clases
             }
         }
 
+        public void CambioClave()
+        {
+            Console.Write("Nuevo PIN (4 dígitos): ");
+            string nuevoPin = Console.ReadLine();
+            if (nuevoPin.Length == 4)
+            {
+                cuentaActual.Pin = nuevoPin;
+                GuardarCuenta();
+                Console.WriteLine("PIN cambiado exitosamente.");
+            }
+            else
+            {
+                Console.WriteLine("PIN debe tener 4 dígitos.");
+            }
+        }
 
+
+        private void GuardarCuenta()
+        {
+            string[] lineas = File.ReadAllLines(ArchivoCuentas);
+            for (int i = 0; i < lineas.Length; i++)
+            {
+                string[] partes = lineas[i].Split(':');
+                if (partes.Length == 3 && int.Parse(partes[0]) == cuentaActual.NumeroCuenta)
+                {
+                    lineas[i] = $"{cuentaActual.NumeroCuenta}:{cuentaActual.Pin}:{cuentaActual.Saldo}";
+                    break;
+                }
+            }
+            File.WriteAllLines(ArchivoCuentas, lineas);
+        }
 
 
 
