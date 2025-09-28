@@ -20,6 +20,11 @@ namespace FinalAtmVersion.Clases
                 using (StreamWriter writer = new StreamWriter(ArchivoCuentas))
                 {
                     writer.WriteLine("12345:0000:0");
+                    writer.WriteLine("54321:0000:0");
+                    writer.WriteLine("11111:0000:0");
+                    writer.WriteLine("22222:0000:0");
+                    writer.WriteLine("33333:0000:0");
+                    writer.WriteLine("44444:4444:0");
                 }
                 Console.WriteLine("Archivo de cuentas creado con cuenta de ejemplo.");
             }
@@ -150,9 +155,7 @@ namespace FinalAtmVersion.Clases
             Console.WriteLine($"Saldo actual: {cuentaActual.Saldo:C}");
         }
 
-        /// <summary>
-        /// e. Muestra los últimos 5 movimientos.
-        /// </summary>
+       
         public void ConsultaMovimientos()
         {
             Console.WriteLine("Últimos 5 movimientos:");
