@@ -24,7 +24,7 @@ namespace FinalAtmVersion.Clases
             }
         }
 
-        public bool IniciarSesion()
+         public bool IniciarSesion()
          {
             Console.Write("Ingrese número de cuenta: ");
             if (!int.TryParse(Console.ReadLine(), out int numeroCuenta))
@@ -101,7 +101,6 @@ namespace FinalAtmVersion.Clases
             if (File.Exists(archivoMov))
             {
                 string[] movs = File.ReadAllLines(archivoMov);
-                // Corrección para compatibilidad: Reemplaza TakeLast(5) con Skip (disponible en .NET Framework 4.5+ y .NET Core 2.0+)
                 int skipCount = Math.Max(0, movs.Length - 5);
                 cuentaActual.Movimientos = movs.Skip(skipCount).ToList();
             }
@@ -125,9 +124,9 @@ namespace FinalAtmVersion.Clases
             }
         }
 
-    }
+    
 
-    public void Retiro()
+        public void Retiro()
         {
             Console.Write("Monto a retirar: ");
             if (decimal.TryParse(Console.ReadLine(), out decimal monto) && monto > 0 && monto <= cuentaActual.Saldo)
