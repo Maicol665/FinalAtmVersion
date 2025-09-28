@@ -127,10 +127,51 @@ namespace FinalAtmVersion.Clases
 
     }
 
+    public void Retiro()
+        {
+            Console.Write("Monto a retirar: ");
+            if (decimal.TryParse(Console.ReadLine(), out decimal monto) && monto > 0 && monto <= cuentaActual.Saldo)
+            {
+                cuentaActual.Saldo -= monto;
+                cuentaActual.AgregarMovimiento("Retiro", monto);
+                GuardarCuenta();
+                GuardarMovimientos();
+                Console.WriteLine($"Retiro exitoso. Nuevo saldo: {cuentaActual.Saldo:C}");
+            }
+            else
+            {
+                Console.WriteLine("Monto inválido o saldo insuficiente.");
+            }
+        }
+
+
+        public void ConsultaSaldo()
+        {
+            Console.WriteLine($"Saldo actual: {cuentaActual.Saldo:C}");
+        }
+
+        /// <summary>
+        /// e. Muestra los últimos 5 movimientos.
+        /// </summary>
+        public void ConsultaMovimientos()
+        {
+            Console.WriteLine("Últimos 5 movimientos:");
+            if (cuentaActual.Movimientos.Count == 0)
+            {
+                Console.WriteLine("No hay movimientos.");
+            }
+            else
+            {
+                foreach (string mov in cuentaActual.Movimientos)
+                {
+                    Console.WriteLine(mov);
+                }
+            }
+        }
 
 
 
 
 
 
-}
+    }
