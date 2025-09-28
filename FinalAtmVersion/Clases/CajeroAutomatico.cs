@@ -201,7 +201,54 @@ namespace FinalAtmVersion.Clases
             File.WriteAllLines(ArchivoCuentas, lineas);
         }
 
+        private void GuardarMovimientos()
+        {
+            string archivoMov = string.Format(ArchivoMovimientos, cuentaActual.NumeroCuenta);
+            File.WriteAllLines(archivoMov, cuentaActual.Movimientos);
+        }
+
+        public void MostrarMenu()
+        {
+            while (true)
+            {
+                Console.WriteLine("\n=== Cajero Automático ===");
+                Console.WriteLine("1. Depósito");
+                Console.WriteLine("2. Retiro");
+                Console.WriteLine("3. Consulta Saldo");
+                Console.WriteLine("4. Últimos 5 Movimientos");
+                Console.WriteLine("5. Cambio de Clave");
+                Console.WriteLine("0. Salir");
+                Console.Write("Opción: ");
+
+                string opcion = Console.ReadLine();
+                switch (opcion)
+                {
+                    case "1":
+                        Deposito();
+                        break;
+                    case "2":
+                        Retiro();
+                        break;
+                    case "3":
+                        ConsultaSaldo();
+                        break;
+                    case "4":
+                        ConsultaMovimientos();
+                        break;
+                    case "5":
+                        CambioClave();
+                        break;
+                    case "0":
+                        Console.WriteLine("Gracias por usar el cajero.");
+                        return;
+                    default:
+                        Console.WriteLine("Opción inválida.");
+                        break;
+                }
+            }
+        }
 
 
 
     }
+}
