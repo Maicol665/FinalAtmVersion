@@ -12,5 +12,13 @@ namespace FinalAtmVersion.Clases
         public string Pin { get; set; }
         public decimal Saldo { get; set; }
         public List<string> Movimientos { get; set; } = new List<string>();
+
+        public Cuenta(int numero, string pin, decimal saldoInicial = 0)
+        {
+            NumeroCuenta = numero;
+            Pin = pin;
+            Saldo = saldoInicial;
+        }
+
     }
 }
