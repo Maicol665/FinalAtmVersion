@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalAtmVersion.Clases
 {
-    internal class Cuenta
+    public class Cuenta
     {
         public int NumeroCuenta { get; set; }
         public string Pin { get; set; }
@@ -18,6 +18,20 @@ namespace FinalAtmVersion.Clases
             NumeroCuenta = numero;
             Pin = pin;
             Saldo = saldoInicial;
+        }
+
+        public void AgregarMovimiento(string tipo, decimal monto)
+        {
+            string fechaHora = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+            string movimiento = $"{fechaHora}:{tipo}:{monto}:{Saldo}";
+
+            Movimientos.Add(movimiento);
+            if (Movimientos.Count > 5)
+            {
+                Movimientos = Movimientos.Skip(Movimientos.Count - 5).ToList();
+            }
+
+
         }
 
     }
