@@ -63,8 +63,37 @@ namespace FinalAtmVersion.Clases
          }
 
 
+        private bool ValidarLogin(int numero, string pin)
+        {
+            if (!File.Exists(ArchivoCuentas)) return false;
 
+            string[] lineas = File.ReadAllLines(ArchivoCuentas);
+            foreach (string linea in lineas)
+            {
+                string[] partes = linea.Split(':');
+                if (partes.Length == 3 && int.Parse(partes[0]) == numero && partes[1] == pin)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        private void CargarCuenta(int numero)
+        {
+            string[] lineas = File.ReadAllLines(ArchivoCuentas);
+            foreach (string linea in lineas)
+            {
+                string[] partes = linea.Split(':');
+                if (partes.Length == 3 && int.Parse(partes[0]) == numero)
+                {
+                    cuentaActual = new Cuenta(numero, partes[1], decimal.Parse(partes[2]));
+                    CargarMovimientos();
+                    return;
+                }
+            }
+            throw new InvalidOperationException("Cuenta no encontrada.");
+        }
 
 
 
@@ -78,5 +107,5 @@ namespace FinalAtmVersion.Clases
 
 
 
-    
+
 }
