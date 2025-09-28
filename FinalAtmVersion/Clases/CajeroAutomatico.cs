@@ -95,10 +95,35 @@ namespace FinalAtmVersion.Clases
             throw new InvalidOperationException("Cuenta no encontrada.");
         }
 
+        private void CargarMovimientos()
+        {
+            string archivoMov = string.Format(ArchivoMovimientos, cuentaActual.NumeroCuenta);
+            if (File.Exists(archivoMov))
+            {
+                string[] movs = File.ReadAllLines(archivoMov);
+                // Corrección para compatibilidad: Reemplaza TakeLast(5) con Skip (disponible en .NET Framework 4.5+ y .NET Core 2.0+)
+                int skipCount = Math.Max(0, movs.Length - 5);
+                cuentaActual.Movimientos = movs.Skip(skipCount).ToList();
+            }
+        }
 
 
-
-
+        public void Deposito()
+        {
+            Console.Write("Monto a depositar: ");
+            if (decimal.TryParse(Console.ReadLine(), out decimal monto) && monto > 0)
+            {
+                cuentaActual.Saldo += monto;
+                cuentaActual.AgregarMovimiento("Deposito", monto);
+                GuardarCuenta();
+                GuardarMovimientos();
+                Console.WriteLine($"Depósito exitoso. Nuevo saldo: {cuentaActual.Saldo:C}");
+            }
+            else
+            {
+                Console.WriteLine("Monto inválido.");
+            }
+        }
 
     }
 
